@@ -1,6 +1,14 @@
 # AuditBookContract
 Audit Book smart contract
 
+This contract includes three actors: the administrator, the auditing company and the auditable company.
+
+The administrator approves or rejects auditing and auditable companies.
+
+Auditing companies can send findings to auditable companies.
+
+Auditable companies can accept or reject the finding.
+
 ## hardhat.config.js
 
 If you use "npx hardhat node", change these lines:
