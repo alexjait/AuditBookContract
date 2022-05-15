@@ -8,17 +8,11 @@ contract AuditBook {
     enum CompanyType { Audit, Auditable }
 
     struct Company {
-        address account;        
+        address account;
         string name;
         StateType state;
         string changeStateMessage;
-        uint[] auditReference;
-    }
-
-    struct CompanyPrincipalData {
-        address account;        
-        string name;
-        StateType state;
+        uint[] auditReference; //Index reference to Audit array (see below)
     }
 
     struct Audit {
@@ -42,6 +36,8 @@ contract AuditBook {
 
     event AuditCompanyStateChanged(string companyName, StateType actualState);
     event AuditableCompanyStateChanged(string companyName, StateType actualState);
+    event AuditSubmitted(Audit audit);
+    event AuditSubmittedStateChanged(Audit audit);
 
     constructor() {
         admin = msg.sender;
@@ -234,6 +230,7 @@ contract AuditBook {
 
         auditCompanies[msg.sender].auditReference.push(auditsCounter - 1);
         auditableCompanies[_auditableCompany].auditReference.push(auditsCounter - 1);
+        emit AuditSubmitted(audits[auditsCounter - 1]);
     }
 
     function getAuditCompanyRegister() external view returns (Company memory) {
@@ -336,6 +333,7 @@ contract AuditBook {
         );
 
         audits[id - 1].state = AuditState.Approved;
+        emit AuditSubmittedStateChanged(audits[id - 1]);
     }
 
     function AuditableCompanyRejectSubmittedAudit(uint id) external {
@@ -357,5 +355,6 @@ contract AuditBook {
         );
 
         audits[id - 1].state = AuditState.Rejected;
+        emit AuditSubmittedStateChanged(audits[id - 1]);
     }
 }
