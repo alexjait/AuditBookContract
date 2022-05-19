@@ -317,15 +317,15 @@ contract AuditBook {
             "The auditable company is not approved"
         );
         require (
-            id < audits.length,
+            id <= audits.length,
             "The audit id does not exist"
         );
         require (
-            audits[id].state == AuditState.Submitted,
+            audits[id - 1].state == AuditState.Submitted,
             "The audit is already approved o rejected"
         );
         require(
-            audits[id].auditableCompanies == msg.sender,
+            audits[id - 1].auditableCompanies == msg.sender,
             "The audit belongs to another company"
         );
 
@@ -343,15 +343,15 @@ contract AuditBook {
             "The auditable company is not approved"
         );
         require (
-            id < audits.length,
+            id <= audits.length,
             "The audit id does not exist"
         );
         require (
-            audits[id].state == AuditState.Submitted,
+            audits[id - 1].state == AuditState.Submitted,
             "The audit is already approved o rejected"
         );
         require(
-            audits[id].auditableCompanies == msg.sender,
+            audits[id - 1].auditableCompanies == msg.sender,
             "The audit belongs to another company"
         );
 
