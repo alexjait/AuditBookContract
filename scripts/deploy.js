@@ -22,7 +22,7 @@ async function main() {
   await AuditBook.deployed();
 
   console.log("AuditBook deployed to:", AuditBook.address);
-  console.log("AuditBook owner address:", owner.address);
+  console.log("Owner address:", owner.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
